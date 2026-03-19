@@ -16,6 +16,9 @@ import { join } from 'path';
 import { RedisModule } from './redis.module';
 // import { GrpcsExceptionFilter } from './common/grpc-exceptions.filter';
 // import { APP_FILTER } from '@nestjs/core';
+import { UserImagesService } from './user_images/user_images.service';
+import { UserImagesController } from './user_images/user_images.controller';
+import { UserImagesModule } from './user_images/user_images.module';
 
 @Module({
   imports: [
@@ -35,10 +38,12 @@ import { RedisModule } from './redis.module';
     // MyLoggerModule,
     AuthModule,
     RedisModule,
+    UserImagesModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, UserImagesController],
   providers: [
     AppService,
+    UserImagesService,
     // { provide: APP_GUARD, useClass: ThrottlerGuard } Activates the throttle
     // {
     //   provide: APP_FILTER,
