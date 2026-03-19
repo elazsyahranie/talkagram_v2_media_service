@@ -17,17 +17,17 @@ async function bootstrap() {
     {
       transport: Transport.TCP,
       options: {
-        host: process.env.USERS_SERVICE_HOST || 'localhost',
-        port: process.env.USERS_SERVICE_PORT
-          ? parseInt(process.env.USERS_SERVICE_PORT, 10)
-          : 3001,
+        host: process.env.MEDIA_SERVICE_HOST || 'localhost',
+        port: process.env.MEDIA_SERVICE_PORT
+          ? parseInt(process.env.MEDIA_SERVICE_PORT, 10)
+          : 3002,
       },
     },
   );
 
   // Start listening for incoming messages
   await app.listen();
-  console.log('User Service is listening on port 3001');
+  console.log('Media Service is listening on port 3002');
   // const app = await NestFactory.create(
   //   AppModule,
   //   { logger: WinstonModule.createLogger(winstonConfig) },
