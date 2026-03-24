@@ -1,0 +1,60 @@
+import { HttpException } from '@nestjs/common';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import { unlink } from 'fs/promises';
+import { existsSync } from 'fs';
+
+// Enter the directory of the folder to store the file
+export function multerImageConfig(path: string, type: string) {
+  console.dir(path, { depth: null });
+  //   console.dir()
+  return {
+    storage: diskStorage({
+      destination: `./uploads/${path}`,
+      filename: (_req, file, callback) => {
+        const name = Date.now() + '-' + Math.round(Math.random() * 1e9);
+        callback(null, name + extname(file.originalname));
+      },
+    }),
+
+    //     // Type Validation
+    //     fileFilter: (_req: any, file: any, cb: any) => {
+    //       // console.dir(path, { depth: null });
+
+    //       let allowedTypes: string[] = [];
+    //       let errorMessage = '';
+    //       if (type === 'image') {
+    //         allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    //         errorMessage = 'Only JPEG, JPG, and PNG formats are allowed!';
+    //       } else if (type === 'document') {
+    //         allowedTypes = [
+    //           'application/pdf',
+    //           'application/msword',
+    //           'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    //         ];
+    //         errorMessage = 'Only PDF, DOC and DOCX are allowed!';
+    //       }
+
+    //       if (!allowedTypes.includes(file.mimetype)) {
+    //         cb(new HttpException(errorMessage, 400), false);
+    //       } else {
+    //         cb(null, true);
+    //       }
+    //     },
+
+    //     limits: { fileSize: 5 * 1024 * 1024 },
+  };
+}
+
+export async function deleteFileIfExists(paths: string[]) {
+  // if (existsSync(path)) {
+  //   await unlink(path);
+  // }
+  await Promise.all(
+    paths.map(async (path) => {
+      if (existsSync(path)) {
+        await unlink(path);
+      }
+    }),
+  );
+}

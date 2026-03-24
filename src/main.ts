@@ -12,21 +12,42 @@ import { Reflector } from '@nestjs/core';
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+  const app = await NestFactory.create(
     AppModule,
-    {
-      transport: Transport.TCP,
-      options: {
-        host: process.env.MEDIA_SERVICE_HOST || 'localhost',
-        port: process.env.MEDIA_SERVICE_PORT
-          ? parseInt(process.env.MEDIA_SERVICE_PORT, 10)
-          : 3002,
-      },
-    },
+    { logger: WinstonModule.createLogger(winstonConfig) },
+    // {
+    // bufferLogs: true
+    // }
   );
 
+  // const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+  //   AppModule,
+  //   {
+  //     transport: Transport.TCP,
+  //     options: {
+  //       host: process.env.MEDIA_SERVICE_HOST || 'localhost',
+  //       port: process.env.MEDIA_SERVICE_PORT
+  //         ? parseInt(process.env.MEDIA_SERVICE_PORT, 10)
+  //         : 3002,
+  //     },
+  //   },
+  // );
+
   // Start listening for incoming messages
-  await app.listen();
+  await app.listen(process.env.MEDIA_SERVICE_HTTP_PORT ?? 4002);
+
+  app.connectMicroservice({
+    transport: Transport.TCP,
+    options: {
+      host: process.env.MEDIA_SERVICE_HOST || 'localhost',
+      port: process.env.MEDIA_SERVICE_PORT
+        ? parseInt(process.env.MEDIA_SERVICE_PORT, 10)
+        : 3002,
+    },
+  });
+
+  // await app.startAllMicroservices();
+
   console.log('Media Service is listening on port 3002');
   // const app = await NestFactory.create(
   //   AppModule,
