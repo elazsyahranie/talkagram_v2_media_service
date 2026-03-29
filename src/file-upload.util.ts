@@ -17,8 +17,6 @@ export function multerImageConfig(path: string, type: string) {
 
     // Type Validation
     fileFilter: (_req: any, file: any, cb: any) => {
-      // console.dir(path, { depth: null });
-
       let allowedTypes: string[] = [];
       let errorMessage = '';
       if (type === 'image') {

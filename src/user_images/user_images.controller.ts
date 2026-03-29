@@ -4,7 +4,12 @@ import {
   UseInterceptors,
   Post,
   UploadedFiles,
+  // Req,
   Inject,
+  Body,
+  Patch,
+  ValidationPipe,
+  HttpCode,
 } from '@nestjs/common';
 // import { MessagePattern } from '@nestjs/microservices';
 import {
@@ -16,6 +21,7 @@ import { Logger } from 'winston';
 import { multerImageConfig } from 'src/file-upload.util';
 import { UserImagesService } from './user_images.service';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { MessagePattern } from '@nestjs/microservices';
 
 @Controller('user-images')
 export class UserImagesController {
@@ -25,7 +31,7 @@ export class UserImagesController {
     private readonly usersImageService: UserImagesService,
   ) {}
   @Post(':id')
-  // @MessagePattern({ cmd: 'userImagesAdd' })
+  @HttpCode(200)
   @UseInterceptors(
     FileFieldsInterceptor(
       [
@@ -54,5 +60,62 @@ export class UserImagesController {
     return {
       status: 'success',
     };
+  }
+
+  @Patch(':id')
+  @HttpCode(200)
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        { name: 'profile', maxCount: 1 },
+        { name: 'header', maxCount: 1 },
+      ],
+      multerImageConfig('images', 'image'),
+    ),
+  )
+  async update(
+    @Body(new ValidationPipe({ whitelist: true }))
+    _updatedUser: {}, // Buat "mancing" aja jadi bia files nya ada isinya
+    @UploadedFiles()
+    files: {
+      profile?: Express.Multer.File[];
+      header?: Express.Multer.File[];
+    },
+    @Param('id') user_id: string,
+  ) {
+    return this.usersImageService.updateUserImage(
+      user_id,
+      files?.profile?.[0],
+      files?.header?.[0],
+    );
+  }
+
+  // @Patch(':id')
+  // @HttpCode(200)
+  @MessagePattern({ cmd: 'userImageDelete' })
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        { name: 'profile', maxCount: 1 },
+        { name: 'header', maxCount: 1 },
+      ],
+      multerImageConfig('images', 'image'),
+    ),
+  )
+  async delete(
+    @Body(new ValidationPipe({ whitelist: true }))
+    _updatedUser: {}, // Buat "mancing" aja jadi biar files nya ada isinya
+    // @UploadedFiles()
+    // files: {
+    //   profile?: Express.Multer.File[];
+    //   header?: Express.Multer.File[];
+    // },
+    @Param('id') user_id: string,
+  ) {
+    return this.usersImageService.updateUserImage(
+      user_id,
+      // files?.profile?.[0],
+      // files?.header?.[0],
+    );
   }
 }
