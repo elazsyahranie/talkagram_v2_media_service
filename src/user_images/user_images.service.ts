@@ -129,5 +129,23 @@ export class UserImagesService {
     return { status: 'success' };
   }
 
-  async deleteUserImage() {}
+  async deleteUserImage(user_id: string) {
+    const findImages = await this.databaseService.userImages.findMany({
+      where: { user_id },
+    });
+    if (findImages.length) {
+      await this.databaseService.userImages.deleteMany({
+        where: {
+          user_id,
+        },
+      });
+
+      const filePaths = findImages.map((obj) => {
+        return obj.path;
+      });
+      deleteFileIfExists(filePaths);
+    }
+
+    return { status: 'success' };
+  }
 }

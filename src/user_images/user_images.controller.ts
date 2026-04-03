@@ -90,32 +90,8 @@ export class UserImagesController {
     );
   }
 
-  // @Patch(':id')
-  // @HttpCode(200)
   @MessagePattern({ cmd: 'userImageDelete' })
-  @UseInterceptors(
-    FileFieldsInterceptor(
-      [
-        { name: 'profile', maxCount: 1 },
-        { name: 'header', maxCount: 1 },
-      ],
-      multerImageConfig('images', 'image'),
-    ),
-  )
-  async delete(
-    @Body(new ValidationPipe({ whitelist: true }))
-    _updatedUser: {}, // Buat "mancing" aja jadi biar files nya ada isinya
-    // @UploadedFiles()
-    // files: {
-    //   profile?: Express.Multer.File[];
-    //   header?: Express.Multer.File[];
-    // },
-    @Param('id') user_id: string,
-  ) {
-    return this.usersImageService.updateUserImage(
-      user_id,
-      // files?.profile?.[0],
-      // files?.header?.[0],
-    );
+  async delete(@Body() user_id: string) {
+    return this.usersImageService.deleteUserImage(user_id);
   }
 }
