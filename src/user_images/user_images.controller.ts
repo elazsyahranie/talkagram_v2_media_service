@@ -64,6 +64,7 @@ export class UserImagesController {
 
   @MessagePattern({ cmd: 'userImagesGetByIds' })
   async getUserImagesByIds(@Body('user_ids') user_ids: string[]) {
+    this.logger.log(`User images fetched!`, 'UsersService');
     return this.usersImageService.getUserImagesByIds(user_ids);
   }
 
