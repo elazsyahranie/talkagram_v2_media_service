@@ -40,6 +40,24 @@ export class UserImagesService {
     return { status: 'success' };
   }
 
+  async getUserImagesByIds(user_ids: string[]) {
+    const userImages = await this.databaseService.userImages.findMany({
+      where: {
+        user_id: {
+          in: user_ids,
+        },
+      },
+      select: {
+        id: true,
+        user_id: true,
+        path: true,
+        type: true,
+      },
+    });
+
+    return userImages;
+  }
+
   async updateUserImage(
     user_id: string,
     profile?: Express.Multer.File,

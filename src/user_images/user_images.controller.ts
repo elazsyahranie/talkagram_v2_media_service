@@ -62,6 +62,11 @@ export class UserImagesController {
     };
   }
 
+  @MessagePattern({ cmd: 'userImagesGetByIds' })
+  async getUserImagesByIds(@Body('user_ids') user_ids: string[]) {
+    return this.usersImageService.getUserImagesByIds(user_ids);
+  }
+
   @Patch(':id')
   @HttpCode(200)
   @UseInterceptors(
