@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { UserImageDto } from './dto/userImageDto';
 import { deleteFileIfExists } from 'src/file-upload.util';
+import { UserImagesResult } from './dto/get-user-images.dto';
 
 @Injectable()
 export class UserImagesService {
@@ -40,7 +41,7 @@ export class UserImagesService {
     return { status: 'success' };
   }
 
-  async getUserImagesByIds(user_ids: string[]) {
+  async getUserImagesByIds(user_ids: string[]): Promise<UserImagesResult[]> {
     const userImages = await this.databaseService.userImages.findMany({
       where: {
         user_id: {

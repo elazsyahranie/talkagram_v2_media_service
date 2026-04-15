@@ -22,6 +22,7 @@ import { multerImageConfig } from 'src/file-upload.util';
 import { UserImagesService } from './user_images.service';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { MessagePattern } from '@nestjs/microservices';
+import { UserImagesResult } from './dto/get-user-images.dto';
 
 @Controller('user-images')
 export class UserImagesController {
@@ -63,7 +64,9 @@ export class UserImagesController {
   }
 
   @MessagePattern({ cmd: 'userImagesGetByIds' })
-  async getUserImagesByIds(@Body('user_ids') user_ids: string[]) {
+  async getUserImagesByIds(
+    @Body('user_ids') user_ids: string[],
+  ): Promise<UserImagesResult[]> {
     this.logger.log(`User images fetched!`, 'UsersService');
     return this.usersImageService.getUserImagesByIds(user_ids);
   }
