@@ -15,19 +15,6 @@ import {
 } from '@nestjs/microservices';
 
 async function bootstrap() {
-  // const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-  //   AppModule,
-  //   {
-  //     transport: Transport.TCP,
-  //     options: {
-  //       host: process.env.MEDIA_SERVICE_HOST || 'localhost',
-  //       port: process.env.MEDIA_SERVICE_PORT
-  //         ? parseInt(process.env.MEDIA_SERVICE_PORT, 10)
-  //         : 3002,
-  //     },
-  //   },
-  // );
-
   const app = await NestFactory.create(
     AppModule,
     { logger: WinstonModule.createLogger(winstonConfig) },
