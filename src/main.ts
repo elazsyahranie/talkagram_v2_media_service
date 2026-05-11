@@ -32,13 +32,15 @@ async function bootstrap() {
       host: process.env.MEDIA_SERVICE_HOST || 'localhost',
       port: process.env.MEDIA_SERVICE_PORT
         ? parseInt(process.env.MEDIA_SERVICE_PORT, 10)
-        : 3002,
+        : 3003,
     },
   });
 
   await app.startAllMicroservices();
 
-  console.log('Media Service is listening on port 3002');
+  console.log(
+    `Media Service is listening on port ${process.env.MEDIA_SERVICE_PORT}`,
+  );
   // // const { httpAdapter } = app.get(HttpAdapterHost);
   // // app.useGlobalFilters(new ExceptionsFilter());
   // // app.useGlobalFilters(new ErrorFilter());
