@@ -94,8 +94,7 @@ export class UserImagesService {
           type: 'Profile',
         },
       });
-      console.log('Profile');
-      console.dir(imageDataBody, { depth: null });
+
       await this.databaseService.userImages.create({
         data: { ...imageDataBody },
       });
@@ -137,8 +136,7 @@ export class UserImagesService {
           type: 'Header',
         },
       });
-      console.log('Header');
-      console.dir(imageDataBody, { depth: null });
+
       await this.databaseService.userImages.create({
         data: { ...imageDataBody },
       });
