@@ -149,3 +149,45 @@ Do not rely on DTO validation for request validation. Use the corresponding Zod 
 The Media Service should own its chat-related data.
 
 Other services should communicate through the Chat Service rather than directly querying its database.
+
+## Production Considerations 
+### HTTP and TCP Communication
+The Media Service should not rely on `localhost` for HTTP or TCP communication in production.
+
+For example:
+```env
+TCP_HOST=media-service
+TCP_PORT=4001
+
+HTTP_HOST=media-service
+HTTP_PORT=3001
+```
+***Note**: The ports shown above may differ from those specified in the original environment configuration, depending on the deployment environment.*
+
+When deployed using Docker/Kubernetes, the service should communicate through the internal service network.
+
+### Database
+The database should be properly configured for production workloads.
+
+Consider:
+- Connection pooling
+- Database indexes
+- Query optimization
+- Transaction handling
+- Backups
+- Migration management
+
+### Authentication
+JWT secrets and other credentials should **never be committed to the repository**.
+
+Production secrets should be provided through environment variables or a dedicated secrets-management system.
+
+### Logging
+The service should provide structured logs for important events such as:
+
+- Database errors
+- Authentication failures
+- Unexpected exceptions
+
+### Health Checks
+A production deployment should expose a health-check mechanism so that the deployment platform can determine whether the Media Service is healthy.
