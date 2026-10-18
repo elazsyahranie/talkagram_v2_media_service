@@ -24,3 +24,14 @@ model UserImages {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
+
+model AttachedFiles {
+  id          String    @id @default(uuid()) @db.VarChar(255)
+  sender      String    @db.VarChar(255)
+  chat_id     String?   @db.VarChar(255)
+  path        String    @db.VarChar(255)
+  filename    String    @db.VarChar(255)
+  ext         String    @db.VarChar(255)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
