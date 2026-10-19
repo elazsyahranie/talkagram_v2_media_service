@@ -18,6 +18,9 @@ import { RedisModule } from './redis.module';
 import { UserImagesService } from './user_images/user_images.service';
 import { UserImagesController } from './user_images/user_images.controller';
 import { UserImagesModule } from './user_images/user_images.module';
+import { AttachedFilesService } from './attached_files/attached_files.service';
+import { AttachedFilesController } from './attached_files/attached_files.controller';
+import { AttachedFilesModule } from './attached_files/attached_files.module';
 
 @Module({
   imports: [
@@ -37,11 +40,13 @@ import { UserImagesModule } from './user_images/user_images.module';
     AuthModule,
     RedisModule,
     UserImagesModule,
+    AttachedFilesModule,
   ],
-  controllers: [AppController, UserImagesController],
+  controllers: [AppController, UserImagesController, AttachedFilesController],
   providers: [
     AppService,
     UserImagesService,
+    AttachedFilesService,
     // { provide: APP_GUARD, useClass: ThrottlerGuard } Activates the throttle
     // {
     //   provide: APP_FILTER,
