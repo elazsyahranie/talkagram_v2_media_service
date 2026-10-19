@@ -24,14 +24,14 @@ import {
 } from 'src/file-upload.util';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 // import { MessagePattern } from '@nestjs/microservices';
-import { AttachedFilesService } from './attached_files.service';
+import { AttachmentFilesService } from './attached_files.service';
 
-@Controller('attached-files')
-export class AttachedFilesController {
+@Controller('attachment-files')
+export class AttachmentFilesController {
   constructor(
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
     private readonly logger: Logger,
-    private readonly attachedFilesService: AttachedFilesService,
+    private readonly attachedFilesService: AttachmentFilesService,
   ) {}
 
   @Post(':id')

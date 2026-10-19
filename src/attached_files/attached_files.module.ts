@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from 'src/database/database.module';
-import { AttachedFilesController } from './attached_files.controller';
-import { AttachedFilesService } from './attached_files.service';
+import { AttachmentFilesController } from './attached_files.controller';
+import { AttachmentFilesService } from './attached_files.service';
 
 @Module({
   imports: [DatabaseModule],
-  controllers: [AttachedFilesController],
-  providers: [AttachedFilesService],
+  controllers: [AttachmentFilesController],
+  providers: [AttachmentFilesService],
 })
 export class AttachedFilesModule {}

@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
-export class AttachFileDto {
+export class AttachmentFileDto {
   @IsString()
   @IsUUID()
   @IsNotEmpty()
