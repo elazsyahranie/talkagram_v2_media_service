@@ -18,9 +18,12 @@ import { RedisModule } from './redis.module';
 import { UserImagesService } from './user_images/user_images.service';
 import { UserImagesController } from './user_images/user_images.controller';
 import { UserImagesModule } from './user_images/user_images.module';
-import { AttachmentFilesService } from './attached_files/attached_files.service';
-import { AttachmentFilesController } from './attached_files/attached_files.controller';
-import { AttachedFilesModule } from './attached_files/attached_files.module';
+// import { AttachmentFilesService } from './attached_files/attached_files.service';
+// import { AttachmentFilesController } from './attached_files/attached_files.controller';
+// import { AttachedFilesModule } from './attached_files/attached_files.module';
+import { AttachmentFilesService } from './attachment_files/attachment_files.service';
+import { AttachmentFilesController } from './attachment_files/attachment_files.controller';
+import { AttachmentFilesModule } from './attachment_files/attachment_files.module';
 
 @Module({
   imports: [
@@ -40,7 +43,7 @@ import { AttachedFilesModule } from './attached_files/attached_files.module';
     AuthModule,
     RedisModule,
     UserImagesModule,
-    AttachedFilesModule,
+    AttachmentFilesModule,
   ],
   controllers: [AppController, UserImagesController, AttachmentFilesController],
   providers: [

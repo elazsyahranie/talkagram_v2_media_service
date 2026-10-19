@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AttachedFilesController } from './attached_files.controller';
+import { AttachedFilesController } from './attachment_files.controller';
 
 describe('AttachedFilesController', () => {
   let controller: AttachedFilesController;

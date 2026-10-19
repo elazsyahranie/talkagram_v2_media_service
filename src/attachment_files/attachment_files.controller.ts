@@ -24,7 +24,7 @@ import {
 } from 'src/file-upload.util';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 // import { MessagePattern } from '@nestjs/microservices';
-import { AttachmentFilesService } from './attached_files.service';
+import { AttachmentFilesService } from './attachment_files.service';
 
 @Controller('attachment-files')
 export class AttachmentFilesController {

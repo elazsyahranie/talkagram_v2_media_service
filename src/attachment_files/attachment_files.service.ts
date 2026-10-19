@@ -29,6 +29,6 @@ export class AttachmentFilesService {
       data: toBeUploaded,
     });
 
-    return { status: 'success', imageIds };
+    return imageIds;
   }
 }
