@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { AttachmentFileDto } from './dto/upload-files.dto';
 import { v4 as uuidv4 } from 'uuid';
+import { SUCCESS } from 'src/common/constants/app.constants';
 
 @Injectable()
 export class AttachmentFilesService {
@@ -30,5 +31,21 @@ export class AttachmentFilesService {
     });
 
     return imageIds;
+  }
+
+  async associateFilesWithChats(file_ids: string[], chat_id: string) {
+    const findFiles = await this.databaseService.attachedFiles.findMany({
+      where: { id: { in: file_ids } },
+    });
+
+    /* Associate those files with the "chat_id" */
+    if (findFiles.length) {
+      await this.databaseService.attachedFiles.updateMany({
+        where: { id: { in: file_ids } },
+        data: { chat_id },
+      });
+    }
+
+    return SUCCESS;
   }
 }

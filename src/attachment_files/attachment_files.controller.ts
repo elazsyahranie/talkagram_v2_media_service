@@ -31,10 +31,10 @@ export class AttachmentFilesController {
   constructor(
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
     private readonly logger: Logger,
-    private readonly attachedFilesService: AttachmentFilesService,
+    private readonly attachmentFilesService: AttachmentFilesService,
   ) {}
 
-  @Post(':id')
+  @Post('/upload/:id')
   @HttpCode(200)
   @UseInterceptors(FilesInterceptor('files', 10, multerAttachedFilesConfig()))
   async uploadFiles(
@@ -42,7 +42,10 @@ export class AttachmentFilesController {
     @UploadedFiles() files: Express.Multer.File[],
     @Param('id') user_id: string,
   ) {
-    const result = await this.attachedFilesService.uploadFiles(user_id, files);
+    const result = await this.attachmentFilesService.uploadFiles(
+      user_id,
+      files,
+    );
 
     this.logger.log(
       `User ${user_id} uploaded ${files.length} files for attachment!`,

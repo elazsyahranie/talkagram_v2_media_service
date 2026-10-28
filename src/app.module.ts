@@ -24,6 +24,7 @@ import { UserImagesModule } from './user_images/user_images.module';
 import { AttachmentFilesService } from './attachment_files/attachment_files.service';
 import { AttachmentFilesController } from './attachment_files/attachment_files.controller';
 import { AttachmentFilesModule } from './attachment_files/attachment_files.module';
+import { AttachmentFilesTcpController } from './attachment_files/attachment_files-tcp.controller';
 
 @Module({
   imports: [
@@ -45,7 +46,12 @@ import { AttachmentFilesModule } from './attachment_files/attachment_files.modul
     UserImagesModule,
     AttachmentFilesModule,
   ],
-  controllers: [AppController, UserImagesController, AttachmentFilesController],
+  controllers: [
+    AppController,
+    UserImagesController,
+    AttachmentFilesController,
+    AttachmentFilesTcpController,
+  ],
   providers: [
     AppService,
     UserImagesService,
