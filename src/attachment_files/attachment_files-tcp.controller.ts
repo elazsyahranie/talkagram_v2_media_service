@@ -26,8 +26,8 @@ export class AttachmentFilesTcpController {
     return result;
   }
 
-  @MessagePattern({ cmd: 'getFilesAssociatedWithChats' })
-  async getFilesAssociatedWithChats(@Payload() chatIds: string[]) {
+  @MessagePattern({ cmd: 'getAssociatedFiles' })
+  async getAssociatedFiles(@Payload() chatIds: string[]) {
     console.dir(chatIds, { depth: null });
 
     return 'success';
