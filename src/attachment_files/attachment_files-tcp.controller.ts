@@ -2,7 +2,7 @@ import { Body, Controller, Inject } from '@nestjs/common';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { AttachmentFilesService } from './attachment_files.service';
-import { MessagePattern } from '@nestjs/microservices';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 import { AssociateFilesDto } from './dto/associate-files.dto';
 
 @Controller('attachment-files-tcp')
@@ -24,5 +24,12 @@ export class AttachmentFilesTcpController {
     this.logger.log(`${file_ids} associated with ${chat_id}`, 'MediaService');
 
     return result;
+  }
+
+  @MessagePattern({ cmd: 'getFilesAssociatedWithChats' })
+  async getFilesAssociatedWithChats(@Payload() chatIds: string[]) {
+    console.dir(chatIds, { depth: null });
+
+    return 'success';
   }
 }
